@@ -7,6 +7,7 @@ public class Bee{
 	private int x;
 	private int y;
 	private int z;
+	private boolean done;
 
 	public Bee(){
 		moveCount = 0;
@@ -14,7 +15,7 @@ public class Bee{
 
 	public Bee(int x, int y, int z){
 		this.x = x; this.y = y; this.z = z;
-		moveCount = 0;
+		moveCount = 0; done = false;
 	}
 
 	public int getX(){return x;}
