@@ -47,16 +47,14 @@ public class Main{
 				grid[x][y][z].setBee(b);
 				bees[i] = b;
 			}
-			System.out.println(3);
 			int obsCount = Integer.parseInt(s.nextLine());
-			System.out.println(obsCount);
 			for(int i = 0; i < obsCount; i++){
 				String[] hold = s.nextLine().split(",");
 				int x = Integer.parseInt(hold[0]);
 				int y = Integer.parseInt(hold[1]);
 				int z = Integer.parseInt(hold[2]);
 				grid[x][y][z].setName("Occupied");
-				System.out.println(x+" "+y+" "+z);
+				//System.out.println(x+" "+y+" "+z);
 
 			}
 
@@ -66,7 +64,11 @@ public class Main{
 		}
 	}
 
-	//public 
+	public static void move(Bee b, int x, int y, int z){
+		grid[b.getX()][b.getY()][b.getZ()].setBee(Null);//sets old Node's bee to Null
+		grid[x][y][z].setBee(b);//new node's bee set to b
+		b.setX(x); b.setY(y); b.setZ(z);//b's x,y,z set
+	}
 
 	public static void main(String[] args){
 

@@ -10,9 +10,9 @@ public class Node{
 	private Bee b;
 
 	private Node parentNode;//the node that connects to this
-	private int fCost;//distance from starting Node
-	private int gCost;//cost to end Node
-	private int hCost;//sum of f and g
+	private int gCost;//distance from starting Node
+	private int hCost;//cost to end Node
+	private int fCost;//sum of g and h
 
 
 	public Node(){
