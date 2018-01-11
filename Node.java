@@ -28,7 +28,9 @@ public class Node{
 	}
 
 	public void calcCost(Node start, Node end){
-		fCost = (int) Math.sqrt((Math.pow(this.x - start.x, 2) + Math.pow(this.y - start.y, 2) + Math.pow(this.z - start.z, 2)));
+		gCost = (int) Math.sqrt((Math.pow(this.x - start.x, 2) + Math.pow(this.y - start.y, 2) + Math.pow(this.z - start.z, 2)));
+		hCost = (int) Math.sqrt((Math.pow(this.x - end.x, 2) + Math.pow(this.y - end.y, 2) + Math.pow(this.z - end.z, 2)));
+		fCost = gCost + hCost;
 	}
 
 	public int getX(){return this.x;}

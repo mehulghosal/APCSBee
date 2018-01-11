@@ -5,6 +5,7 @@ public class Main{
 
 	public static Node[][][] grid;
 	public static Bee[] bees;
+	public static ArrayList<Node> beehives = new ArrayList<Node>();
 
 	public static void read(){
 		try{
@@ -35,6 +36,7 @@ public class Main{
 				int y = Integer.parseInt(hold[1]);
 				int z = Integer.parseInt(hold[2]);
 				grid[x][y][z] = new Node(x, y, z, "Beehive"); 
+				beehives.add(grid[x][y][z]);
 			}
 			System.out.println(2);
 			//sets up the bees
@@ -65,9 +67,17 @@ public class Main{
 	}
 
 	public static void move(Bee b, int x, int y, int z){
-		grid[b.getX()][b.getY()][b.getZ()].setBee(Null);//sets old Node's bee to Null
+		grid[b.getX()][b.getY()][b.getZ()].setBee(null);//sets old Node's bee to Null
 		grid[x][y][z].setBee(b);//new node's bee set to b
 		b.setX(x); b.setY(y); b.setZ(z);//b's x,y,z set
+	}
+	//do floodfill
+	public static void algorithm(Bee b){
+		Node goal = beehives.get(0);
+		beehives.remove(goal);
+		//while(goal.){
+
+	//	}
 	}
 
 	public static void main(String[] args){
