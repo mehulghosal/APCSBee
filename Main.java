@@ -139,8 +139,10 @@ public class Main{
 		for(int i = -1; i<2; i++){
 			for(int j = -1; j < 2; j++){
 				for(int k = -1; k<2; k++){
-
-					if(!(i==0 && j == 0 && k == 0)){
+					int xNew = x+i;
+					int yNew = y+i;
+					int zNew = z+i;
+					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length && zNew>=0) {
 						around.add(grid[x+i][y+i][z+i]);
 					}
 				}
