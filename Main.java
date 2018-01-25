@@ -144,8 +144,8 @@ public class Main{
 					int xNew = x+i;
 					int yNew = y+i;
 					int zNew = z+i;
-					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length && zNew>=0) {
-						around.add(grid[x+i][y+i][z+i]);
+					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length && zNew>=0 && grid[xNew][yNew][zNew].getName.equals("Obstacle")) {
+						around.add(grid[xNew][yNew][zNew]);
 					}
 
 				}
@@ -179,13 +179,7 @@ public class Main{
 	public static void main(String[] args){
 
 		Main.readTest();
-		for(int i = 0; i< grid.length; i++){
-			for(int j = 0; j< grid.length; j++){
-				for(int k = 0; k < grid.length; k++){
-					System.out.println(grid[i][j][k]);
-				}
-			}
-		}
+		
 
 
 	}
