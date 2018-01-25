@@ -136,6 +136,8 @@ public class Main{
 	public static ArrayList<Node> around(Node center){
 		int x = center.getX(); int y = center.getY(); int z = center.getZ();
 		ArrayList<Node> around = new ArrayList<Node>();
+
+
 		for(int i = -1; i<2; i++){
 			for(int j = -1; j < 2; j++){
 				for(int k = -1; k<2; k++){
@@ -145,6 +147,7 @@ public class Main{
 					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length && zNew>=0) {
 						around.add(grid[x+i][y+i][z+i]);
 					}
+
 				}
 			}
 		}
@@ -159,15 +162,14 @@ public class Main{
 		beehives.remove(goal);
 		Node start = getNode(b);
 		start.setVal(0);//signifies that first node has a value of 0 from the start
-		ArrayList<Node> visited = new ArrayList<Node>();
 		ArrayList<Node> aroundArr = new ArrayList<Node>();
 		Node current = start;
 
-		while(!goal.getBee().equals(b)){
+		while(!current.equals(goal)){
 
 			aroundArr = around(current);
 			for(Node n: aroundArr){
-				n.setVal(current.getVal()+1);
+				n.setVal(current.getVal()+1); n.setVisited(true);
 			}
 
 		}
@@ -177,6 +179,13 @@ public class Main{
 	public static void main(String[] args){
 
 		Main.readTest();
+		for(int i = 0; i< grid.length; i++){
+			for(int j = 0; j< grid.length; j++){
+				for(int k = 0; k < grid.length; k++){
+					System.out.println(grid[i][j][k]);
+				}
+			}
+		}
 
 
 	}
