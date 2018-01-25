@@ -54,7 +54,7 @@ public class Main{
 				int x = Integer.parseInt(hold[0]);
 				int y = Integer.parseInt(hold[1]);
 				int z = Integer.parseInt(hold[2]);
-				grid[x][y][z].setName("Occupied");
+				grid[x][y][z].setName("Obstacle");
 				//System.out.println(x+" "+y+" "+z);
 
 			}
@@ -114,7 +114,7 @@ public class Main{
 				int x = Integer.parseInt(hold[0]);
 				int y = Integer.parseInt(hold[1]);
 				int z = Integer.parseInt(hold[2]);
-				grid[x][y][z].setName("Occupied");
+				grid[x][y][z].setName("Obstacle");
 				//System.out.println(x+" "+y+" "+z);
 			}
 		}
