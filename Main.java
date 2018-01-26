@@ -169,7 +169,10 @@ public class Main{
 
 			aroundArr = around(current);
 			for(Node n: aroundArr){
-				n.setVal(current.getVal()+1); n.setVisited(true);
+				if (!n.getVisited() && !n.getName().equals("Obstacle")){
+					n.setVal(current.getVal()+1); 
+					n.setVisited(true);	
+				}
 			}
 
 		}
