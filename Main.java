@@ -144,7 +144,8 @@ public class Main{
 					int xNew = x+i;
 					int yNew = y+i;
 					int zNew = z+i;
-					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length && zNew>=0 && grid[xNew][yNew][zNew].getName.equals("Obstacle")) {
+					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length 
+						&& zNew>=0 && grid[xNew][yNew][zNew].getName().equals("Obstacle")) {
 						around.add(grid[xNew][yNew][zNew]);
 					}
 
@@ -158,6 +159,7 @@ public class Main{
 	//do floodfill
 	//returns number of moves needed for bee to move from starting location to end node
 	public static int algorithm(Bee b){
+
 		Node goal = beehives.get(0);
 		beehives.remove(goal);
 		Node start = getNode(b);
