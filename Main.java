@@ -166,14 +166,22 @@ public class Main{
 		start.setVal(0);//signifies that first node has a value of 0 from the start
 		ArrayList<Node> aroundArr = new ArrayList<Node>();
 		Node current = start;
+		aroundArr.add(current);
+		
+		boolean bool = true;
+		while(bool) {
 
-		while(!current.equals(goal)){
-
-			aroundArr = around(current);
-			for(Node n: aroundArr){
-				if (!n.getVisited() && !n.getName().equals("Obstacle")){
-					n.setVal(current.getVal()+1); 
-					n.setVisited(true);	
+			for(Node n: aroundArr) {
+				ArrayList<Node> newAround = around(n);
+				if(newAround.contains(goal)) {
+					bool = false;
+					break;
+				}
+				else {
+					for(Node tanwi : newAround) {
+						aroundArr.add(tanwi);
+					}
+					aroundArr.remove(n);
 				}
 			}
 
