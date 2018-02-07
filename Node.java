@@ -16,7 +16,7 @@ public class Node{
 	}
 
 	public Node(int x, int y, int z){
-		this.x = x; this.y = y; this.z = z; value = 0; visited = false;
+		this.x = x; this.y = y; this.z = z; value = 0; visited = false; name = "null";
 	}
 
 	public Node(int x, int y, int z, String n){

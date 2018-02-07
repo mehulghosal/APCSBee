@@ -144,9 +144,11 @@ public class Main{
 					int xNew = x+i;
 					int yNew = y+i;
 					int zNew = z+i;
+					Node n = grid[xNew][yNew][zNew];
 					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length 
-						&& zNew>=0 && grid[xNew][yNew][zNew].getName().equals("Obstacle")) {
+						&& zNew>=0 && !n.getName().equals("Obstacle") && n.getVisited()==false) {
 						around.add(grid[xNew][yNew][zNew]);
+						grid[xNew][yNew][zNew].setVisited(true);
 					}
 
 				}
@@ -158,18 +160,18 @@ public class Main{
 
 	//do floodfill
 	//returns number of moves needed for bee to move from starting location to end node
-	public static int algorithm(Bee b){
+	public static int algorithm(Bee b) {
 
 		Node goal = beehives.get(0);
 		beehives.remove(goal);
 		Node start = getNode(b);
 		start.setVal(0);//signifies that first node has a value of 0 from the start
 		ArrayList<Node> aroundArr = new ArrayList<Node>();
-		Node current = start;
-		aroundArr.add(current);
+		aroundArr.add(start);
 		
 		boolean bool = true;
 		while(bool) {
+			ArrayList<Node> x = new ArrayList<Node>();
 
 			for(Node n: aroundArr) {
 				ArrayList<Node> newAround = around(n);
@@ -181,9 +183,14 @@ public class Main{
 					for(Node tanwi : newAround) {
 						aroundArr.add(tanwi);
 					}
-					aroundArr.remove(n);
+					x.add(n);
+					//aroundArr.remove(n); do this somewhere else
+					
 				}
 			}
+			aroundArr.removeAll(x);
+			
+			
 
 		}
 		return 0;
@@ -192,6 +199,7 @@ public class Main{
 	public static void main(String[] args){
 
 		Main.readTest();
+		algorithm(bees.get(0));
 		
 
 
