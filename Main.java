@@ -144,11 +144,14 @@ public class Main{
 					int xNew = x+i;
 					int yNew = y+i;
 					int zNew = z+i;
-					Node n = grid[xNew][yNew][zNew];
-					if(!(i==0 && j == 0 && k == 0) && xNew<=grid.length && xNew>=0 && yNew<=grid.length && yNew>=0 && zNew<=grid.length 
-						&& zNew>=0 && !n.getName().equals("Obstacle") && n.getVisited()==false) {
-						around.add(grid[xNew][yNew][zNew]);
-						grid[xNew][yNew][zNew].setVisited(true);
+					System.out.println("To add: (" + xNew + ", " + yNew + ", " + zNew + ")");
+					if(xNew<grid.length && xNew>=0 && yNew<grid.length && yNew>=0 && zNew<grid.length && zNew>=0) {
+						Node n = grid[xNew][yNew][zNew];
+						if(!n.getName().equals("Obstacle") && n.getVisited()==false) {
+							around.add(n);
+							n.setVisited(true);
+							System.out.println(n);
+						}
 					}
 
 				}
@@ -171,24 +174,17 @@ public class Main{
 		
 		boolean bool = true;
 		while(bool) {
-			ArrayList<Node> x = new ArrayList<Node>();
+			ArrayList<Node> toAdd = new ArrayList<Node>();
 
 			for(Node n: aroundArr) {
 				ArrayList<Node> newAround = around(n);
+				toAdd.addAll(newAround);
 				if(newAround.contains(goal)) {
 					bool = false;
 					break;
 				}
-				else {
-					for(Node tanwi : newAround) {
-						aroundArr.add(tanwi);
-					}
-					x.add(n);
-					//aroundArr.remove(n); do this somewhere else
-					
-				}
 			}
-			aroundArr.removeAll(x);
+			aroundArr = toAdd;
 			
 			
 

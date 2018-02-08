@@ -39,6 +39,9 @@ public class Node{
 	public void setBee(Bee b){this.b = b;}
 	public void setVal(int i){this.value = i;}
 	public void setVisited(boolean b){visited = b;}
+	public String toString() {
+		return ("(" + x + ", " + y + ", " + z + ")");
+	}
 
 }
 
