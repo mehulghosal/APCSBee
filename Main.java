@@ -137,20 +137,22 @@ public class Main{
 		int x = center.getX(); int y = center.getY(); int z = center.getZ();
 		ArrayList<Node> around = new ArrayList<Node>();
 
+		System.out.println(center);
 
 		for(int i = -1; i<2; i++){
 			for(int j = -1; j < 2; j++){
 				for(int k = -1; k<2; k++){
 					int xNew = x+i;
-					int yNew = y+i;
-					int zNew = z+i;
-					System.out.println("To add: (" + xNew + ", " + yNew + ", " + zNew + ")");
-					if(xNew<grid.length && xNew>=0 && yNew<grid.length && yNew>=0 && zNew<grid.length && zNew>=0) {
+					int yNew = y+j;
+					int zNew = z+k;
+					if((xNew<grid.length && xNew>=0) && (yNew<grid.length && yNew>=0) && (zNew<grid.length && zNew>=0)) {
 						Node n = grid[xNew][yNew][zNew];
+						//System.out.println("To add: (" + xNew + ", " + yNew + ", " + zNew + ")");
+
 						if(!n.getName().equals("Obstacle") && n.getVisited()==false) {
-							around.add(n);
 							n.setVisited(true);
-							System.out.println(n);
+							around.add(n);
+							//System.out.println(n);
 						}
 					}
 
@@ -163,10 +165,9 @@ public class Main{
 
 	//do floodfill
 	//returns number of moves needed for bee to move from starting location to end node
-	public static int algorithm(Bee b) {
+	public static int algorithm(Bee b, Node hive) {
 
 		Node goal = beehives.get(0);
-		beehives.remove(goal);
 		Node start = getNode(b);
 		start.setVal(0);//signifies that first node has a value of 0 from the start
 		ArrayList<Node> aroundArr = new ArrayList<Node>();
@@ -178,14 +179,17 @@ public class Main{
 
 			for(Node n: aroundArr) {
 				ArrayList<Node> newAround = around(n);
+				//System.out.println(newAround.size());
 				toAdd.addAll(newAround);
 				if(newAround.contains(goal)) {
 					bool = false;
+					System.out.println("Reached goal.");
 					break;
 				}
 			}
+			//System.out.println(toAdd.size());
 			aroundArr = toAdd;
-			
+			//System.out.println(aroundArr.size());
 			
 
 		}
@@ -194,8 +198,10 @@ public class Main{
 
 	public static void main(String[] args){
 
-		Main.readTest();
-		algorithm(bees.get(0));
+		Main.read();
+		for(int i = 0; i<15; i++) {
+			algorithm(bees.get(i), beehives.get(i));
+		}
 		
 
 
