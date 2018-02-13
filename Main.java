@@ -165,22 +165,35 @@ public class Main{
 
 	//do floodfill
 	//returns number of moves needed for bee to move from starting location to end node
-	public static int algorithm(Bee b, Node hive) {
+	public static void algorithm(Bee b, Node hive) {
 
+		for(int i = 0; i<grid.length; i++){
+			for(int j = 0; j<grid.length; j++){
+				for(Node n: grid[i][j]){
+					n.setVisited(false);
+					n.setVal(0);
+				}
+			}
+		}
+		int counter = 0;
 		Node goal = beehives.get(0);
 		Node start = getNode(b);
-		start.setVal(0);//signifies that first node has a value of 0 from the start
+		start.setVal(counter);//signifies that first node has a value of 0 from the start
 		ArrayList<Node> aroundArr = new ArrayList<Node>();
 		aroundArr.add(start);
 		
 		boolean bool = true;
 		while(bool) {
 			ArrayList<Node> toAdd = new ArrayList<Node>();
+			counter++;
 
 			for(Node n: aroundArr) {
 				ArrayList<Node> newAround = around(n);
 				//System.out.println(newAround.size());
 				toAdd.addAll(newAround);
+				for(Node a: newAround) {
+					a.setVal(counter);
+				}
 				if(newAround.contains(goal)) {
 					bool = false;
 					System.out.println("Reached goal.");
@@ -191,16 +204,24 @@ public class Main{
 			aroundArr = toAdd;
 			//System.out.println(aroundArr.size());
 			
-
 		}
-		return 0;
+		System.out.println(goal.getVal());
+		//return 0;
 	}
+
+
 
 	public static void main(String[] args){
 
 		Main.read();
 		for(int i = 0; i<15; i++) {
 			algorithm(bees.get(i), beehives.get(i));
+			try {
+			    Thread.sleep(1000);
+			} 
+			catch(InterruptedException ex){
+			    Thread.currentThread().interrupt();
+			}
 		}
 		
 
