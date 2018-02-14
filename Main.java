@@ -9,13 +9,9 @@ public class Main{
 
 	public static void read(){
 		try{
-			//System.out.println("1");
 			Scanner s = new Scanner(new File("beesetup1.txt"));
-			//System.out.println("2");
 			s.nextLine();
-			//System.out.println("3");
 			String firstLn = s.nextLine();
-			//System.out.println("4");
 			int size = Integer.parseInt(firstLn.split(",")[0]);
 
 			
@@ -37,7 +33,6 @@ public class Main{
 				grid[x][y][z] = new Node(x, y, z, "Beehive"); 
 				beehives.add(grid[x][y][z]);
 			}
-			System.out.println(2);
 			//sets up the bees
 			for(int i = 0; i<15; i++){
 				String[] hold = s.nextLine().split(",");
@@ -55,7 +50,8 @@ public class Main{
 				int y = Integer.parseInt(hold[1]);
 				int z = Integer.parseInt(hold[2]);
 				grid[x][y][z].setName("Obstacle");
-				//System.out.println(x+" "+y+" "+z);
+				//System.out.println(grid[x][y][z]);
+				//System.out.println(grid[x][y][z].getName());
 
 			}
 
@@ -67,13 +63,9 @@ public class Main{
 
 	public static void readTest(){
 		try{
-			//System.out.println("1");
 			Scanner s = new Scanner(new File("test.txt"));
-			//System.out.println("2");
 			s.nextLine();
-			//System.out.println("3");
 			String firstLn = s.nextLine();
-			//System.out.println("4");
 			int size = Integer.parseInt(firstLn.split(",")[0]);
 
 			
@@ -95,10 +87,8 @@ public class Main{
 				grid[x][y][z] = new Node(x, y, z, "Beehive"); 
 				beehives.add(grid[x][y][z]);
 			}
-			//System.out.println(2);
 			//sets up the bees
 			for(int i = 0; i<3; i++){
-				//System.out.println(i);
 				String[] hold = s.nextLine().split(",");
 				int x = Integer.parseInt(hold[0]);
 				int y = Integer.parseInt(hold[1]);
@@ -107,7 +97,6 @@ public class Main{
 				grid[x][y][z].setBee(b);
 				bees.add(b);
 			}
-			//System.out.println(3);
 			int obsCount = Integer.parseInt(s.nextLine());
 			for(int i = 0; i < obsCount; i++){
 				String[] hold = s.nextLine().split(",");
@@ -137,7 +126,6 @@ public class Main{
 		int x = center.getX(); int y = center.getY(); int z = center.getZ();
 		ArrayList<Node> around = new ArrayList<Node>();
 
-		System.out.println(center);
 
 		for(int i = -1; i<2; i++){
 			for(int j = -1; j < 2; j++){
@@ -147,12 +135,12 @@ public class Main{
 					int zNew = z+k;
 					if((xNew<grid.length && xNew>=0) && (yNew<grid.length && yNew>=0) && (zNew<grid.length && zNew>=0)) {
 						Node n = grid[xNew][yNew][zNew];
-						//System.out.println("To add: (" + xNew + ", " + yNew + ", " + zNew + ")");
 
-						if(!n.getName().equals("Obstacle") && n.getVisited()==false) {
-							n.setVisited(true);
-							around.add(n);
-							//System.out.println(n);
+						if(n.getVisited()==false) {
+							if(!n.getName().equals("Obstacle")){
+								n.setVisited(true);
+								around.add(n);
+							}
 						}
 					}
 
@@ -165,7 +153,7 @@ public class Main{
 
 	//do floodfill
 	//returns number of moves needed for bee to move from starting location to end node
-	public static void algorithm(Bee b, Node hive) {
+	public static int algorithm(Bee b, Node hive) {
 
 		for(int i = 0; i<grid.length; i++){
 			for(int j = 0; j<grid.length; j++){
@@ -176,7 +164,7 @@ public class Main{
 			}
 		}
 		int counter = 0;
-		Node goal = beehives.get(0);
+		Node goal = hive;
 		Node start = getNode(b);
 		start.setVal(counter);//signifies that first node has a value of 0 from the start
 		ArrayList<Node> aroundArr = new ArrayList<Node>();
@@ -189,24 +177,21 @@ public class Main{
 
 			for(Node n: aroundArr) {
 				ArrayList<Node> newAround = around(n);
-				//System.out.println(newAround.size());
 				toAdd.addAll(newAround);
 				for(Node a: newAround) {
 					a.setVal(counter);
 				}
 				if(newAround.contains(goal)) {
 					bool = false;
-					System.out.println("Reached goal.");
+					System.out.println("Reached goal." + start + " " + goal);
 					break;
 				}
 			}
-			//System.out.println(toAdd.size());
 			aroundArr = toAdd;
-			//System.out.println(aroundArr.size());
 			
 		}
 		System.out.println(goal.getVal());
-		//return 0;
+		return goal.getVal();
 	}
 
 
@@ -214,16 +199,18 @@ public class Main{
 	public static void main(String[] args){
 
 		Main.read();
+		int c = 0;
 		for(int i = 0; i<15; i++) {
-			algorithm(bees.get(i), beehives.get(i));
-			try {
+			c += algorithm(bees.get(i), beehives.get(i));
+			
+			/*try {
 			    Thread.sleep(1000);
 			} 
 			catch(InterruptedException ex){
 			    Thread.currentThread().interrupt();
-			}
+			}*/
 		}
-		
+		System.out.println(c);
 
 
 	}

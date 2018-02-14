@@ -35,7 +35,7 @@ public class Node{
 	public void setX(int x){this.x = x;}
 	public void setY(int y){this.y = y;}
 	public void setZ(int z){this.z = z;}
-	public void setName(String n){this.name = name;}
+	public void setName(String n){this.name = n;}
 	public void setBee(Bee b){this.b = b;}
 	public void setVal(int i){this.value = i;}
 	public void setVisited(boolean b){visited = b;}
