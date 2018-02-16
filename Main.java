@@ -79,7 +79,7 @@ public class Main{
 				}
 			}
 			//sets up beehives
-			for(int i = 0; i<3; i++){
+			for(int i = 0; i<1; i++){
 				String[] hold = s.nextLine().split(",");
 				int x = Integer.parseInt(hold[0]);
 				int y = Integer.parseInt(hold[1]);
@@ -88,7 +88,7 @@ public class Main{
 				beehives.add(grid[x][y][z]);
 			}
 			//sets up the bees
-			for(int i = 0; i<3; i++){
+			for(int i = 0; i<1; i++){
 				String[] hold = s.nextLine().split(",");
 				int x = Integer.parseInt(hold[0]);
 				int y = Integer.parseInt(hold[1]);
@@ -195,13 +195,51 @@ public class Main{
 	}
 
 
+	//sorts beehives array based on distance
+	public static void sortHives(Bee b){
+		
+		for (int j = 0; j< beehives.size(); j++){
+			Node hive = beehives.get(j);
+			hive.setDist(Math.sqrt(Math.pow(hive.getX() - b.getX(),2) + Math.pow(hive.getY() - b.getY(),2) + Math.pow(hive.getZ() - b.getZ(),2)));
+		}
+		selectionSort(beehives);
+
+	}
+
+	public static void selectionSort(ArrayList<Node> arr){
+
+		for (int i = 0; i < arr.size()-1; i++){
+			int minId = i;
+
+			for (int j = i+1; j < arr.size(); j++){
+				if (arr.get(j).compareTo(arr.get(minId))<0){
+  					minId = j;
+				}
+			}
+			Node hold = arr.get(minId);
+			//arr[minId] = arr[i];
+			arr.set(minId, arr.get(i));
+			//arr[i] = hold;
+			arr.set(i, hold);
+
+        }
+    }
+
 
 	public static void main(String[] args){
 
 		Main.read();
 		int c = 0;
 		for(int i = 0; i<15; i++) {
-			c += algorithm(bees.get(i), beehives.get(i));
+			sortHives(bees.get(i));
+			for(int j = 0; j < 15; j++){
+				if(!beehives.get(j).getHV()){
+					c += algorithm(bees.get(i), beehives.get(j));
+					//System.out.println(beehives);
+					beehives.get(j).setHV(true);
+					break;
+				}
+			}
 			
 			/*try {
 			    Thread.sleep(1000);
