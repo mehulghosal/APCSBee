@@ -7,9 +7,9 @@ public class Main{
 	public static ArrayList<Bee> bees = new ArrayList<Bee>();
 	public static ArrayList<Node> beehives = new ArrayList<Node>();
 
-	public static void read(){
+	public static void read(String str){
 		try{
-			Scanner s = new Scanner(new File("beesetup1.txt"));
+			Scanner s = new Scanner(new File(str));
 			s.nextLine();
 			String firstLn = s.nextLine();
 			int size = Integer.parseInt(firstLn.split(",")[0]);
@@ -183,14 +183,14 @@ public class Main{
 				}
 				if(newAround.contains(goal)) {
 					bool = false;
-					System.out.println("Reached goal." + start + " " + goal);
+					System.out.println("Bee started at: " + start + ", and ended at hive: " + goal);
 					break;
 				}
 			}
 			aroundArr = toAdd;
 			
 		}
-		System.out.println(goal.getVal());
+		System.out.println("Number of moves: " + goal.getVal());
 		return goal.getVal();
 	}
 
@@ -228,7 +228,21 @@ public class Main{
 
 	public static void main(String[] args){
 
-		Main.read();
+		Scanner s = new Scanner(System.in);
+		System.out.println("Which file would you like to read from (1,2,3): ");
+		String str = s.nextLine();
+		if(str.equals("1")){
+			Main.read("beesetup1.txt");
+		}
+		else if(str.equals("2")){
+			Main.read("beesetup2.txt");
+		}
+		else if(str.equals("3")){
+			Main.read("beesetup3.txt");
+		}
+		else{
+			System.out.println("not valid");
+		}
 		int c = 0;
 		for(int i = 0; i<15; i++) {
 			sortHives(bees.get(i));
@@ -248,7 +262,7 @@ public class Main{
 			    Thread.currentThread().interrupt();
 			}*/
 		}
-		System.out.println(c);
+		System.out.println("Sum of all bees moves: " + c);
 
 
 	}
