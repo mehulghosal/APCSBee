@@ -141,6 +141,7 @@ public class Main{
 								n.setVisited(true);
 								around.add(n);
 							}
+							//System.out.println("obstacle");
 						}
 					}
 
@@ -198,15 +199,57 @@ public class Main{
 	//sorts beehives array based on distance
 	public static void sortHives(Bee b){
 		
-		for (int j = 0; j< beehives.size(); j++){
-			Node hive = beehives.get(j);
+		for (Node hive:beehives){
 			hive.setDist(Math.sqrt(Math.pow(hive.getX() - b.getX(),2) + Math.pow(hive.getY() - b.getY(),2) + Math.pow(hive.getZ() - b.getZ(),2)));
 		}
-		selectionSort(beehives);
+
+		//sort
+		for (int i = 0; i < beehives.size()-1; i++){
+			int minId = i;
+
+			for (int j = i+1; j < beehives.size(); j++){
+				if (beehives.get(j).compareTo(beehives.get(minId))<0){
+  					minId = j;
+				}
+			}
+			Node hold = beehives.get(minId);
+			//arr[minId] = arr[i];
+			beehives.set(minId, beehives.get(i));
+			//arr[i] = hold;
+			beehives.set(i, hold);
+
+		}
+	}
+
+	public static void sortBees(){
+		int hiveX = beehives.get(0).getX();
+		int hiveY = beehives.get(0).getY();
+		//avg of y
+		int hiveZ = (beehives.get(0).getZ() + beehives.get(14).getZ()) / 2;
+		for(Bee b:bees){
+			b.setDist(Math.sqrt(Math.pow(hiveX - b.getX(),2) + Math.pow(hiveY - b.getY(),2) + Math.pow(hiveZ - b.getZ(),2)));
+		}
+
+		//sort
+		for (int i = 0; i < bees.size()-1; i++){
+			int minId = i;
+
+			for (int j = i+1; j < bees.size(); j++){
+				if (bees.get(j).compareTo(bees.get(minId))<0){
+  					minId = j;
+				}
+			}
+			Bee hold = bees.get(minId);
+			//arr[minId] = arr[i];
+			bees.set(minId, bees.get(i));
+			//arr[i] = hold;
+			bees.set(i, hold);
+
+		}
 
 	}
 
-	public static void selectionSort(ArrayList<Node> arr){
+	/*public static void selectionSort(ArrayList<Node> arr){
 
 		for (int i = 0; i < arr.size()-1; i++){
 			int minId = i;
@@ -223,7 +266,7 @@ public class Main{
 			arr.set(i, hold);
 
         }
-    }
+    }*/
 
 
 	public static void main(String[] args){
@@ -244,6 +287,8 @@ public class Main{
 			System.out.println("not valid");
 		}
 		int c = 0;
+
+		sortBees();
 		for(int i = 0; i<15; i++) {
 			sortHives(bees.get(i));
 			for(int j = 0; j < 15; j++){
